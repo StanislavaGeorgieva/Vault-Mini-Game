@@ -1,4 +1,3 @@
-// src/components/VaultGame.jsx
 import React, { useEffect, useState, useRef } from 'react';
 import gsap from 'gsap';
 import VaultHandle from './VaultHandle';
@@ -82,41 +81,65 @@ const VaultGame = () => {
 
   const unlockVault = () => {
     setIsUnlocked(true);
-    gsap.to(doorRef.current, { x: -300, duration: 1.5, ease: 'power2.out' });
-    gsap.to(treasureRef.current, { opacity: 1, duration: 1.5, repeat: -1, yoyo: true });
+
+    gsap.to(doorRef.current.querySelector(".closed-door"), { opacity: 0, duration: 0.5 });
+    gsap.to(doorRef.current.querySelector(".open-door"), { opacity: 1, duration: 0.5 });
+
+    gsap.to(vaultHandleRef.current, { opacity: 0, duration: 0.5 });
+
+    gsap.to(doorRef.current, { x: 300, duration: 1.5, ease: 'power2.out' });
+
+    const treasureBlink = gsap.to(treasureRef.current, {
+      opacity: 1,
+      duration: 1.5,
+      repeat: -1,
+      yoyo: true,
+      paused: true
+    });
+
+    treasureBlink.play();
 
     setHasWon(true);
 
-
     setTimeout(() => {
-      gsap.to(doorRef.current, { x: 0, duration: 1.5, ease: 'power2.in' }); 
+      gsap.to(doorRef.current, { x: 0, duration: 1.5, ease: 'power2.in' });
+      gsap.to(doorRef.current.querySelector(".closed-door"), { opacity: 1, duration: 0 });
+      gsap.to(doorRef.current.querySelector(".open-door"), { opacity: 0, duration: 0 });
+
+
+      gsap.to(vaultHandleRef.current, { opacity: 1, duration: 0 });
+
+      treasureBlink.pause(0);
+      gsap.to(treasureRef.current, { opacity: 0, duration: 0.5 });
+
       startNewGame();
     }, 5000);
   };
 
-  const handlePlayAgain = () => {
-    startNewGame();
-  };
 
   return (
     <div className="App">
       <div className="vault">
 
         <div ref={doorRef} className="door" style={{ position: 'relative', width: '500px', height: '500px' }}>
-          <img src="/assets/door.png" alt="Vault Door" style={{ width: '100%', height: '100%' }} />
-          {isUnlocked && (
-            <img
-              src="/assets/doorOpen.png"
-              alt="Open Vault Door"
-              style={{ position: 'absolute', width: '100%', height: '100%' }}
-            />
-          )}
+          <img
+            src="/assets/door.png"
+            alt="Vault Door"
+            className="closed-door"
+            style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, opacity: 1 }}
+          />
+          <img
+            src="/assets/doorOpen.png"
+            alt="Open Vault Door"
+            className="open-door"
+            style={{ position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, opacity: 0 }}
+          />
 
           <div ref={vaultHandleRef} className="handle">
             <VaultHandle onUnlock={unlockVault} />
           </div>
         </div>
- 
+
         <img
           ref={treasureRef}
           className="treasure"
@@ -125,7 +148,6 @@ const VaultGame = () => {
           style={{ width: '150px', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', opacity: 0 }}
         />
       </div>
-      
 
       <div className="vault-console">
         <div className="numbers">
@@ -142,12 +164,14 @@ const VaultGame = () => {
         </div>
         <div className="directions">
           <h3>Select a Direction:</h3>
-          <button onClick={() => handleDirectionSelection('clockwise')}>Clockwise</button>
-          <button onClick={() => handleDirectionSelection('counterclockwise')}>Counterclockwise</button>
-        </div>
-        <button onClick={checkCombination}>Try</button>
-      </div>
+          <button onClick={() => handleDirectionSelection('counterclockwise')}>←Counterclockwise</button>
+          <button onClick={() => handleDirectionSelection('clockwise')}>→Clockwise</button>
 
+
+
+        </div>
+        <button className='try-button' onClick={checkCombination}>Try</button>
+      </div>
 
       <div className="current-combination">
         <h3>Current Combination:</h3>
@@ -155,7 +179,6 @@ const VaultGame = () => {
           <div key={index}>{`${entry.number} ${entry.direction}`}</div>
         ))}
       </div>
-
 
       {hasWon && (
         <div className="win-message">
@@ -167,6 +190,7 @@ const VaultGame = () => {
 };
 
 export default VaultGame;
+
 
 
 

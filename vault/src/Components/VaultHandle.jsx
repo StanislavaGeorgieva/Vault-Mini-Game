@@ -1,4 +1,3 @@
-// src/components/VaultHandle.jsx
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 

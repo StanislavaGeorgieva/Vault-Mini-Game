@@ -30,12 +30,14 @@ body {
 }
 
 .handle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+  position: absolute; /* Позволява на дръжката да се позиционира спрямо родителя си */
+  top: 50%; /* Центрираме дръжката вертикално спрямо вратата */
+  left: 50%; /* Центрираме дръжката хоризонтално спрямо вратата */
+  transform: translate(-50%, -50%); /* Изместваме дръжката по средата */
+  opacity: 1; /* Уверете се, че е видима по подразбиране */
+  transition: opacity 0.5s ease; /* Анимация за плавно скриване/показване */
 }
+
 
 .treasure {
   position: absolute;
@@ -52,15 +54,20 @@ body {
   transform: translateX(-50%);
 }
 
+/* Vault Console Styling */
 .vault-console {
-  position: absolute;
-  bottom: 50px;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 20px;
-  border-radius: 10px;
+  position: fixed; /* Променяме на fixed, за да бъде винаги видима */
+  bottom: 20px; /* Позиционираме я на 20px от долната част на екрана */
+  left: 50%; /* Центриране по средата на екрана */
+  transform: translateX(-50%); /* Изместваме с 50%, за да бъде точно в центъра */
+  background-color: rgba(0, 0, 0, 0.8); /* Тъмен фон с малко прозрачност */
+  padding: 20px 40px; /* Падинг за по-добра видимост */
+  border-radius: 15px; /* Заоблени ъгли */
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5); /* Лека сянка */
+  z-index: 1000; /* Увеличаваме z-index, за да стои над други елементи */
 }
 
 .numbers,
@@ -72,18 +79,74 @@ body {
 
 .numbers button,
 .directions button {
-  padding: 10px;
+  padding: 10px 15px; 
   margin: 5px;
   cursor: pointer;
-  background-color: #555;
+  background-color: #444; 
   color: #fff;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  border: 1px solid #333; 
+  border-radius: 8px; 
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .numbers button:hover,
 .directions button:hover {
-  background-color: #777;
+  background-color: #666; 
+  transform: scale(1.1); 
+}
+
+.numbers button:active,
+.directions button:active {
+  background-color: #777; 
+  transform: scale(1); 
+}
+
+/* Секцията "Current Combination" */
+.current-combination {
+  margin-top: 20px; /* Добавяме отстояние от другите елементи */
+  background-color: rgba(0, 0, 0, 0.8); /* Запазваме стиловете */
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.current-combination h3 {
+  margin: 0;
+  padding: 0;
+  color: #e0e0e0; /* Светъл нюанс за заглавието */
+  font-size: 18px;
+}
+
+.current-combination div {
+  margin: 5px 0;
+}
+
+/* Стилове за бутона Try */
+.try-button {
+  padding: 10px 20px; /* Размер на бутона */
+  background-color: #4CAF50; /* Зелен цвят по подразбиране */
+  color: #fff; /* Бял текст */
+  border: none; /* Премахваме границата */
+  border-radius: 8px; /* Закръгляме ъглите */
+  font-size: 16px; /* По-голям шрифт за по-добра четимост */
+  font-weight: bold; /* Задаваме удебелен шрифт */
+  cursor: pointer; /* Добавяме показалеца като курсор */
+  transition: background-color 0.3s, transform 0.2s; /* Плавен преход за hover ефекта */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Добавяме лека сянка */
+}
+
+.try-button:hover {
+  background-color: #45a049; /* По-тъмен зелен цвят при задържане */
+  transform: scale(1.05); /* Леко уголемяване при задържане */
+}
+
+.try-button:active {
+  background-color: #3e8e41; /* Още по-тъмен зелен цвят при натискане */
+  transform: scale(1); /* Връщане към нормален размер при натискане */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Намалена сянка при натискане */
 }
 
