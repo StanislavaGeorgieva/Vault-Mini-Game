@@ -6,7 +6,7 @@ const VaultGame = () => {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [currentCombination, setCurrentCombination] = useState([]);
   const [secretCombination, setSecretCombination] = useState([]);
-  const [selectedNumber, setSelectedNumber] = useState(null);
+  const [selectedNumber, setSelectedNumber] = useState(null); 
   const vaultHandleRef = useRef(null);
   const doorRef = useRef(null);
   const treasureRef = useRef(null);
@@ -57,7 +57,7 @@ const VaultGame = () => {
     });
 
     setCurrentCombination((prev) => [...prev, { number: selectedNumber, direction }]);
-    setSelectedNumber(null); 
+    setSelectedNumber(null);
   };
 
   const checkCombination = () => {
@@ -82,6 +82,20 @@ const VaultGame = () => {
     setIsUnlocked(true);
     gsap.to(doorRef.current, { x: -300, duration: 1.5, ease: 'power2.out' });
     gsap.to(treasureRef.current, { opacity: 1, duration: 1.5, repeat: -1, yoyo: true });
+    
+
+    setTimeout(() => {
+      closeVault();
+    }, 5000);
+  };
+
+  const closeVault = () => {
+    gsap.to(doorRef.current, { x: 0, duration: 1.5, ease: 'power2.in' });
+    gsap.to(treasureRef.current, { opacity: 0, duration: 1.5 });
+    
+    setTimeout(() => {
+      startNewGame();
+    }, 1500); 
   };
 
   return (
@@ -115,7 +129,7 @@ const VaultGame = () => {
             <button
               key={i + 1}
               onClick={() => handleNumberSelection(i + 1)}
-              disabled={selectedNumber !== null}
+              disabled={selectedNumber !== null} 
             >
               {i + 1}
             </button>
