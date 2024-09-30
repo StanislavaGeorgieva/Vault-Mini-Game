@@ -1,29 +1,33 @@
-import React, { useImperativeHandle, forwardRef, useRef } from 'react';
+// src/components/VaultHandle.jsx
+import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 
-const VaultHandle = forwardRef((props, ref) => {
-  const handleRef = useRef();
+const VaultHandle = ({ onUnlock }) => {
+  const handleRef = useRef(null);
 
-  useImperativeHandle(ref, () => ({
-    rotate(direction) {
-      const rotationAngle = direction === 'clockwise' ? 60 : -60;
-      gsap.to(handleRef.current, {
-        rotation: `+=${rotationAngle}`,
-        duration: 0.5,
-        onComplete: props.onUnlock,
-      });
-    },
-  }));
+  useEffect(() => {
+    gsap.set(handleRef.current, { rotation: 0 });
+  }, []);
 
   return (
-    <img
+    <div
       ref={handleRef}
-      src="/assets/handle.png"
-      alt="Vault Handle"
-      style={{ width: '60px', height: '60px', transformOrigin: 'center' }}
+      className="vault-handle"
+      style={{
+        position: 'absolute',
+        width: '150px', 
+        height: '150px', 
+        backgroundImage: 'url("/assets/handle.png")',
+        backgroundSize: 'cover',
+        cursor: 'pointer',
+        transformOrigin: 'center center', 
+        left: '50%', 
+        top: '50%',
+        transform: 'translate(-50%, -50%)', 
+      }}
     />
   );
-});
+};
 
 export default VaultHandle;
 
