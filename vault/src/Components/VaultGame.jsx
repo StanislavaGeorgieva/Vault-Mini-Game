@@ -2,6 +2,63 @@ import React, { useEffect, useState, useRef } from 'react';
 import gsap from 'gsap';
 import VaultHandle from './VaultHandle';
 
+/**
+ * VaultGame component represents a vault game where the player needs to guess the correct combination
+ * of numbers and directions to unlock the vault and reveal the treasure.
+ *
+ * @component
+ * @example
+ * return (
+ *   <VaultGame />
+ * )
+ *
+ * @returns {JSX.Element} The rendered VaultGame component.
+ *
+ * @function
+ * @name VaultGame
+ *
+ * @description
+ * The VaultGame component initializes the game state, generates a secret combination, and provides
+ * functions to handle number and direction selections. It checks the player's combination against
+ * the secret combination and unlocks the vault if the combination is correct. The game uses GSAP
+ * for animations and React hooks for state management.
+ *
+ * @property {boolean} isUnlocked - State to track if the vault is unlocked.
+ * @property {Array} currentCombination - State to track the current combination entered by the player.
+ * @property {Array} secretCombination - State to store the generated secret combination.
+ * @property {number|null} selectedNumber - State to track the currently selected number.
+ * @property {boolean} hasWon - State to track if the player has won the game.
+ * @property {object} vaultHandleRef - Ref to the vault handle element.
+ * @property {object} doorRef - Ref to the door element.
+ * @property {object} treasureRef - Ref to the treasure element.
+ *
+ * @method
+ * @name generateSecretCombination
+ * @description Generates a random secret combination of numbers and directions.
+ *
+ * @method
+ * @name startNewGame
+ * @description Resets the game state and starts a new game.
+ *
+ * @method
+ * @name handleNumberSelection
+ * @description Handles the selection of a number by the player.
+ * @param {number} number - The selected number.
+ *
+ * @method
+ * @name handleDirectionSelection
+ * @description Handles the selection of a direction by the player.
+ * @param {string} direction - The selected direction ('clockwise' or 'counterclockwise').
+ *
+ * @method
+ * @name checkCombination
+ * @description Checks the player's combination against the secret combination.
+ *
+ * @method
+ * @name unlockVault
+ * @description Unlocks the vault and reveals the treasure if the combination is correct.
+ */
+
 const VaultGame = () => {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [currentCombination, setCurrentCombination] = useState([]);

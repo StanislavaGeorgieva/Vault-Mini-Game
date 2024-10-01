@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
 
+/**
+ * VaultConsole component allows users to input a number and a direction.
+ * 
+ * @component
+ * @param {Object} props - The properties object.
+ * @param {function} props.onInput - Callback function to handle the input of number and direction.
+ * 
+ * @example
+ * <VaultConsole onInput={(number, direction) => console.log(number, direction)} />
+ * 
+ * @returns {JSX.Element} The rendered VaultConsole component.
+ */
+
 const VaultConsole = ({ onInput }) => {
   const [currentNumber, setCurrentNumber] = useState(null);
   const [currentDirection, setCurrentDirection] = useState(null);

@@ -1,6 +1,19 @@
 import React, { forwardRef, useRef, useImperativeHandle } from 'react';
 import { Sprite, Container } from '@pixi/react';
 
+/**
+ * VaultDoor component that represents a door in the vault game.
+ * 
+ * This component uses `forwardRef` to expose a custom ref with `x` property
+ * for getting and setting the x-coordinate of the door.
+ * 
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {React.Ref} ref - The reference forwarded to the component.
+ * 
+ * @returns {JSX.Element} The rendered VaultDoor component.
+ */
+
 const VaultDoor = forwardRef((props, ref) => {
   const doorRef = useRef();
 
